@@ -1,65 +1,89 @@
-# 🌸 Flower Classification using CNN
+# 🌸 Flower Classification – Deep Learning (CNN) vs Classical ML (HOG + Boosting)
 
-This project implements a **Convolutional Neural Network (CNN)** to classify flower images into **5 categories**.  
-The model was trained on the **Kaggle Flower Dataset**, achieving over **90% test accuracy**.
+This project explores **two approaches** for classifying flower images into **5 categories**:
+
+1. **Deep Learning (CNN with TensorFlow/Keras)** – learns features directly from raw pixel data.  
+2. **Classical Machine Learning (HOG + Boosting Classifiers)** – uses handcrafted **Histogram of Oriented Gradients (HOG)** features with **CatBoost, LightGBM, and XGBoost**.
+
+The comparison highlights the strengths of deep learning over traditional ML in image classification tasks.
 
 ---
 
 ## 📂 Dataset
-- Dataset: [Kaggle Flowers Recognition](https://www.kaggle.com/alxmamaev/flowers-recognition)  
-- Classes:  
-  - 🌹 Rose  
+- Source: Custom flower dataset (Google Drive, ~145 MB).  
+- Classes:
+  - 🌺 Astilbe  
   - 🌻 Sunflower  
-  - 🌼 Daisy  
-  - 🌸 Dandelion  
-  - 🌷 Tulip  
+  - 🌼 Dandelion  
+  - 🌸 Magnolia  
+  - 🌹 Rose  
 
-The dataset was split into:
-- **70% Training**
-- **20% Validation**
-- **10% Testing**
+**Dataset Split:**
+- 70% Training  
+- 20% Validation  
+- 10% Testing  
 
----
-
-## 🏗️ Model Architecture
-The CNN was built using **TensorFlow/Keras** with the following structure:
-
-- `Conv2D` + `MaxPooling` layers (feature extraction)  
-- `Dropout` (to reduce overfitting)  
-- `GlobalAveragePooling2D` (dimensionality reduction)  
-- Fully Connected Dense layers (classification)  
-- Final `Softmax` layer for 5-class output  
 
 ---
 
-## ⚙️ Training Details
-- **Image size:** 224 × 224 × 3  
-- **Optimizer:** Adam (`lr = 0.001`)  
-- **Loss function:** Categorical Crossentropy  
-- **Batch size:** 32  
+## 🏗️ Approach 1 – Convolutional Neural Network (CNN)
+
+### 🔹 Model Architecture
+- Conv2D → MaxPooling → Dropout  
+- Conv2D → MaxPooling → Dropout  
+- Flatten → Dense(256) → Dropout  
+- Dense(5, softmax)
+
+### 🔹 Training Details
+- **Image Size:** 256 × 256 × 3  
+- **Optimizer:** Adam  
+- **Loss Function:** Sparse Categorical Crossentropy  
+- **Batch Size:** 32  
 - **Epochs:** 50  
-- **Callbacks:**
-  - `ModelCheckpoint` (save best model)
-  - `EarlyStopping` (prevent overfitting)
-  - `ReduceLROnPlateau` (learning rate scheduler)
+- **Data Augmentation:** Random flip, rotation, zoom, contrast  
+
+### 🔹 Results
+- ✅ Training Accuracy: ~97%  
+- ✅ Validation Accuracy: ~92–93%  
+- ✅ **Test Accuracy: 90.25%**  
 
 ---
 
-## 📊 Results
-- ✅ **Training Accuracy:** ~97%  
-- ✅ **Validation Accuracy:** ~92–93%  
-- ✅ **Test Accuracy:** **90.25%**  
+## 🏗️ Approach 2 – Classical ML (HOG + Boosting)
 
-Training vs Validation Accuracy Plot:  
-*(Add your matplotlib plot here)*
+### 🔹 Feature Extraction
+- Used **HOG (Histogram of Oriented Gradients)** to extract shape & edge features.  
+- Each image → ~34,596 HOG features.  
+- Features normalized using `MinMaxScaler`.  
 
-Confusion Matrix:  
-*(Optional: insert confusion matrix visualization here)*
+### 🔹 Models Trained
+- **CatBoostClassifier**  
+- **LightGBMClassifier**  
+- **XGBoostClassifier**
+
+### 🔹 Results
+| Model                | Accuracy | Precision | Recall | F1   | Balanced Acc. |
+|-----------------------|----------|-----------|--------|------|---------------|
+| **CNN (TensorFlow)** | **90.25%** | 0.91      | 0.90   | 0.90 | 0.89          |
+| CatBoost             | 68.3%    | 0.69      | 0.68   | 0.68 | 0.65          |
+| LightGBM             | 65.4%    | 0.67      | 0.65   | 0.65 | 0.61          |
+| XGBoost              | 64.2%    | 0.65      | 0.64   | 0.63 | 0.60          |
+
+✅ CNN significantly outperforms boosting classifiers.  
+⚡ CatBoost was the best among classical ML models.
+
+---
+
+## 📈 Visualizations
+- Training vs Validation Accuracy curves (CNN).  
+- Confusion Matrices for CNN, CatBoost, LightGBM, and XGBoost.  
+- Bar chart comparison of Accuracy, Precision, Recall, and F1 scores.  
 
 ---
 
 ## 🚀 How to Run
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/flower-classification-cnn.git
-   cd flower-classification-cnn
+
+### 1️⃣ Clone the repository
+```bash
+git clone https://github.com/your-username/flower-classification.git
+cd flower-classification
