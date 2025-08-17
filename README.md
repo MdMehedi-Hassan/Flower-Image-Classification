@@ -10,7 +10,7 @@ The comparison highlights the strengths of deep learning over traditional ML in 
 ---
 
 ## 📂 Dataset
-- Source: Custom flower dataset (Google Drive, ~145 MB).  
+- Source: Custom flower dataset ([Google Drive, ~145 MB](https://drive.google.com/file/d/1nzf5b_NNJlnInkueIWCOG7PWFv-Zk2Wk/view?usp=drive_link)).  
 - Classes:
   - 🌺 Astilbe  
   - 🌻 Sunflower  
