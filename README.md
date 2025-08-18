@@ -39,7 +39,7 @@ The comparison highlights the strengths of deep learning over traditional ML in 
 - **Optimizer:** Adam  
 - **Loss Function:** Sparse Categorical Crossentropy  
 - **Batch Size:** 32  
-- **Epochs:** 50  
+- **Epochs:** 100  
 - **Data Augmentation:** Random flip, rotation, zoom, contrast  
 
 ### 🔹 Results
